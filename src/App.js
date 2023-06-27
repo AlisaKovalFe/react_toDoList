@@ -6,10 +6,7 @@ import Form from './components/Form/Form'
 function App() {
 
   const [text, setText] = useState('')
-  const [list, setList] = useState([{
-    text: '1я задача',
-    id: 1
-  }])
+  const [list, setList] = useState([])
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -17,27 +14,30 @@ function App() {
     const task = {
       text,
       id: Date.now(),
+      status: false
     }
 
     setList((prev) => [...prev, task])
     setText('')
   }
 
-  function checkstatus(list) {
-    list.map((el) => {
-      if (!el.checked) {
-        el.checked = false
+  const handlerChange = (event) => {
+
+    list.forEach((el) => {
+      if (el.id.toString() === event.target.value) {
+        el.status === false ? el.status = true : el.status = false
+        return el
       }
-      return el
     })
+
+    setList((prev) => [...prev])
   }
 
-  console.log(list)
   return (
     <>
       <main className="container my-5">
         <Form text={text} setText={setText} handleSubmit={handleSubmit} />
-        <TaskList tasks={list} checkstatus={checkstatus} />
+        <TaskList tasks={list} handlerChange={handlerChange} />
       </main>
 
     </>
