@@ -11,7 +11,7 @@ function Task({ text, status, id, handlerChange }) {
 				onChange={handlerChange}
 			/>
 			<label 
-                className={status ? "text-success" : "text-black" }
+				className={status ? "form-check-label text-decoration-line-through" : "form-check-label" }
                 htmlFor="flexCheckDefault">
 				{text}
 			</label>

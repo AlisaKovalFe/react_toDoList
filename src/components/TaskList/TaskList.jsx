@@ -3,7 +3,7 @@ import Task from "../Task/Task";
 
 function TaskList({ tasks, handlerChange }) {
 	return (
-		<div className="mt-5">
+		<div className="tasklist mt-5">
 			{tasks.map((task) => (
 				<div key={task.id} className="form-check ">
 					<Task

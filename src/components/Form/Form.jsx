@@ -2,14 +2,15 @@ import React from "react";
 
 function Form({ text, setText, handleSubmit }) {
 	return (
-		<form className="mb-3 w-50" onSubmit={handleSubmit}>
-			<div className="mb-3">
-				<label htmlFor="exampleInput" className="form-label">
-					Введите задачу: {text}
+		<form className="form" onSubmit={handleSubmit}>
+			<div className="">
+				<label htmlFor="exampleInput" className="form-label fw-semibold fs-4 mb-4">
+					Add task {text}
 				</label>
 				<input
 					type="text"
-					className="form-control"
+					className="form-control "
+					placeholder="add here"
 					id="exampleInput"
 					aria-describedby="emailHelp"
 					onChange={(event) => setText(event.target.value)}
@@ -17,9 +18,10 @@ function Form({ text, setText, handleSubmit }) {
 				/>
 			</div>
 
-			<button type="submit" className="btn btn-primary">
-				Отправить
-			</button>
+			<div className="btn-wrap">
+				<button type="submit" className="btn btn-secondary">Add</button>
+			</div>			
+							
 		</form>
 	);
 }
