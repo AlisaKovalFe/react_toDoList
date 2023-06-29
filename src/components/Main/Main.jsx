@@ -7,7 +7,7 @@ import { useLocalStorage } from '../../hooks/useLS';
 function Main(props) {
 
     const [text, setText] = useState('')
-    const [list, setList] = useLocalStorage('tasks', [])
+    const [list, setList] = useLocalStorage('tasks', ['нет у меня дел'])
 
     function handleSubmit(event) {
         event.preventDefault()

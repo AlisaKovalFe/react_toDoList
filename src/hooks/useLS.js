@@ -14,10 +14,12 @@ export function useLocalStorage(key, initalValue) {
     const [value, setValue] = useState(getSavedValue(key, initalValue))
     useEffect(() => {
         let str = ''
-        
-        value.map((el) => {
+        let count = 0
+
+        value.map((el) => {           
             if (el.status === false) {
-                str += `${el.text}, `
+                count++
+                str += `${count}) ${el.text} `
             }
             return el           
         })
