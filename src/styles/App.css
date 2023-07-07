@@ -43,3 +43,20 @@
 .tasklist {
   width: 40rem;
 }
+
+.btn-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 2rem;
+}
+
+.task_area {
+  display: flex;
+  align-items: center;
+}
+
+.task {
+  width: 10rem;
+}
