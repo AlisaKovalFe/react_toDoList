@@ -44,12 +44,15 @@
   width: 40rem;
 }
 
-.btn-delete {
+.btn-delete,
+.btn-invert,
+.btn-save {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 4.5rem;
   height: 2rem;
+  margin-right: 1rem;
 }
 
 .task_area {

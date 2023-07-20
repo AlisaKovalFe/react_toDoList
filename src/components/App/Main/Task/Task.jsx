@@ -1,6 +1,7 @@
 import React from "react";
 import  { useContext } from "react";
 import { globalContext } from "../../context/globalContext";
+import TaskEdit from '../TaskEdit/TaskEdit'
 
 function Task({ text, status, id }) {
 
@@ -15,14 +16,23 @@ function Task({ text, status, id }) {
 	}
 	
 	const deleteTask = (id) => {
-		// console.log(id)
-			dispatch({
-				type: 'DELETE_TASK',
-				payload: {			
-					id: id
-				}
-			})
-		}
+		dispatch({
+			type: 'DELETE_TASK',
+			payload: {			
+				id: id,
+			}
+		})
+	}
+
+	// const invert = (id) => {				
+	// 	dispatch({
+	// 		type: 'INVERT_TASK',
+	// 		payload: {			
+	// 			id: id,
+	// 			text: text
+	// 		}
+	// 	})
+	// }
 
 	return (
 		<div className="task_area">
@@ -45,6 +55,17 @@ function Task({ text, status, id }) {
 				className="btn btn-secondary btn-delete"
 				onClick={() => deleteTask(id)}>
 					Delete
+			</button>
+			<button 
+				type="submit" 
+				className="btn btn-secondary btn-invert"
+				onClick={(id) => {			
+					return (
+						<TaskEdit />
+					)
+				}}
+				>
+					Invert
 			</button>
 		</div>
 	);

@@ -19,6 +19,10 @@ export function reducer(state, action) {
             return {...state, list: state.list.filter((el) => el.id !== action.payload.id)}
         }
 
+        case 'INVERT_TASK': {
+            return {...state, list: [...state.list]}
+        }
+
         default: {
             return state
         }

@@ -19,7 +19,6 @@ function App() {
   // const [list, setList] = useState([])
     
     
-
     // const handlerChange = (event) => {
 
     //     let newList = list.map((el, index) => {
