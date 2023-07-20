@@ -37,7 +37,7 @@ function Form() {
 		<form className="form" onSubmit={handleSubmit}>
 			<div className="">
 				<label htmlFor="exampleInput" className="form-label fw-semibold fs-4 mb-4">
-					Add task {text}
+					Add task 
 				</label>
 				<input
 					type="text"

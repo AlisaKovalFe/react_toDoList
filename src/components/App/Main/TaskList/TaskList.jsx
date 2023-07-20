@@ -31,6 +31,7 @@ function TaskList() {
 				<div key={task.id} className="form-check ">
 					<Task
 						text={task.text}
+						setText={task.setText}
 						status={task.status}
                         id={task.id}
 					/>
