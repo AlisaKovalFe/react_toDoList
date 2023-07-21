@@ -7,6 +7,7 @@ function Task({ text, status, id, list,  setList}) {
 			if (el.id === id) {
 				el.status = !el.status;
 			}
+			return el
 		});
 		setList(newList);
 	}
