@@ -11,15 +11,14 @@ function Form({ text, setText, handleSubmit }) {
 					type="text"
 					className="form-control "
 					placeholder="add here"
-					id="exampleInput"
-					aria-describedby="emailHelp"
+					id="task"
 					onChange={(event) => setText(event.target.value)}
 					value={text}
 				/>
 			</div>
 
 			<div className="btn-wrap">
-				<button type="submit" className="btn btn-secondary">Add</button>
+				<button className="btn btn-secondary">Add</button>
 			</div>			
 							
 		</form>

@@ -1,16 +1,17 @@
 import React from "react";
 import Task from "../Task/Task";
 
-function TaskList({ tasks, handlerChange }) {
+function TaskList({ list, setList }) {
 	return (
 		<div className="tasklist mt-5">
-			{tasks.map((task) => (
+			{list?.map((task) => (
 				<div key={task.id} className="form-check ">
 					<Task
 						text={task.text}
 						status={task.status}
-                        id={task.id}
-						handlerChange={handlerChange}
+            id={task.id}
+						setList={setList}
+						list={list}
 					/>
 				</div>
 			))}
