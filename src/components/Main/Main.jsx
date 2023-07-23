@@ -2,13 +2,14 @@ import React from 'react';
 import { useState } from "react"
 import TaskList from '../TaskList/TaskList'
 import Form from '../Form/Form'
+import useLocalStorage from '../../hooks/useLS'
 
 let store = []
 
 function Main(props) {
 
     const [text, setText] = useState('')
-    const [list, setList] = useState([])
+    const [list, setList] = useLocalStorage([], 'tasks')
     
     function handleSubmit(event) {
         event.preventDefault()
