@@ -4,8 +4,6 @@ import TaskList from '../TaskList/TaskList'
 import Form from '../Form/Form'
 import useLocalStorage from '../../hooks/useLS'
 
-// let store = []
-
 function Main(props) {
 
     const [text, setText] = useState('')
@@ -20,16 +18,8 @@ function Main(props) {
         status: false
         }
         
-        setList((prev) => [...prev, task])
+        setList((prev) => [task, ...prev])
         setText('')
-
-        // store.push(task)     
-
-        // if (localStorage.getItem('task') == null) {
-        //     localStorage.setItem('task', JSON.stringify(store))
-        // } else if (localStorage.getItem('task') != null) {
-        //     localStorage.setItem('task', JSON.stringify(store))
-        // }
     } 
 
     const handlerChange = (event) => {
@@ -38,15 +28,6 @@ function Main(props) {
         if (el.id.toString() === event.target.value) {
             
             el.status === false ? el.status = true : el.status = false    
-            
-            // if (el.status === true) {
-            //     let storeCopy = [...store]
-            //     storeCopy.splice(index, 1)
-            //     localStorage.setItem('task', JSON.stringify(storeCopy))
-            // } else {
-            //     localStorage.setItem('task', JSON.stringify(store))
-            // }
-            
         }
         return el
         })
