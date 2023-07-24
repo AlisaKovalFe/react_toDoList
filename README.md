@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+Логика реализация кастомного хука useLocalStorage
+(определение кастомного хука - это любая ф-ция, которая не является компоннетом, но внутри себя использует хуки реакт)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1.  useLocalStorage является кастомным хуком ==> должен внутри себя использовать хуки реакта. Так как нам нужно менять состояние массива list будем использовать useState. ==>
 
-## Available Scripts
+2.  в файле Main.js нужно вызвать наш кастомный хук useLocalStorage.
 
-In the project directory, you can run:
+    2.1) при вызове useLocalStorage 1м аргументом передаем начальное значение (у нас пустой массив) и ключ, так хранилище должно иметь ключ и то, что хранится по ключу.
 
-### `npm start`
+    2.2) По определениею useState возвращет массив, состоящий из состония и ф-ции для его изменения (чтобы реакт смог отледить изменение стейта и перерисовать шаблон). С помощью синтаксиса деструктуризации эти результаты заносятся в переменные (1-состояние, 2-ф-ция для изменения состония). ==>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    2.3) кастомный хук useLocalStorage также должен возвращать состония и ф-ции для его изменения ==>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    const [list, setList] = useLocalStorage([], "plan")
 
-### `npm test`
+3.  в файле useLS.js прописывает кастомный хук.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    3.1) создаем и экспортируем ф-цию useLocalStorage
+    3.2) в качестве аргументов передаем некое начальное значение (у нас это пустой массив) и ключ (так же, как и в п. 2.1)
+    3.3) сразу пишем, что возвращаем из ф-ции массив, состоящий из состония и ф-ции для его изменения (так же, как и в п. 2.3). у нас это [value, setValue] ==>
 
-### `npm run build`
+    3.4) нам нужно где-то брать начально состояние value (там мб не пустой массив, так как хранилище мб непустым), для этого создаем вложенную ф-цию getValue и передаем ее в качестве начального значения value в useState.
+    // Вопрос: почему передаем, а не вызываем?? почему так работает??
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    3.5) ф-ция getValue ничего не принимает и дефолтно возвращает начальное значение (аргумент ф-ции useLocalStorage).
+    3.6) в ф-ции getValue создаем переменную хранилище, в которую поместим то, что взяли из локал хранилища по ключу
+    const storage = localStorage.getItem(key)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    3.7) далее нужно проверить пустое ли на данный момент хранилище или нет. Если нет, то мы должны попытаться взять оттуда данные через парсинг хранилища (там в любом случае лежит строка, поэтому парсим). Если не получается распарсить, значит возвращем дефолтное начальное значение.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+            // Вопрос: зачем нам делать try catch не понима, можно ведь просто через if else?
 
-### `npm run eject`
+    3.8) нам нужно сохранять данные в хранилище ==> используем хук useEffect
+    3.9) в useEffect указываем, что при изменение ключа или того, что лежит в хранилище (value), нужно в хралище по ключу (аргумент в useLocalStorage) сохранять в виде строки новое value.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    // Вопрос: правильно я понимаю, что value будет обновляться, когда будет срабатывать setValue, а на самом деле setList (когда задача будет добаляться в массив через setList), который прописан в файле Main. И получается useEffect в файле useLS будет понимать, что произошел setList и поэтому уюдет перезаписывать хранилище?
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Логика реализации зачеркивания задачи
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+ТЗ: список дел должен сохраняться в полном виде в лс, с уже вычеркнутыми задачами.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    //  Вопрос: нужно все задачи сохранить с текущим статусом или все же удалять из хранилища те, чей статус true? Судя по твоему коду все...
 
-## Learn More
+1. Перенос setList непосредственно в компонент Task.
+   Для этого из Main сначала пробрасываем list и setList в Tasklist. Внутри Tasklist мы идем по list и рендерим Task (объекты list).И Task передаем параметры (list, setList, text, status, id)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    // Вопрос: зачем setList передавать в Task? чтобы ф-ция находилась там, где ей по логике надо и чтобы Main не засорялся?
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. в Task принимаем (list, setList, text, status, id) и отрисовываем каждую задачу с инпуом типа чекбокс. В этом инпуте на изменение чекбокса навешиваем хэндлер, который принимаем id, этот id пришел в Task, наш инпут чекбокс его знает.
 
-### Code Splitting
+3. в хэндлере надо менять статус задачи. В Хэндлер будет передаваться id в момент нажатия на чекбокс, чекбокс этот id знает.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4. далее описываю логику на свой скорр от твоего код (мне мой понятен, твой не совсем)===>
 
-### Analyzing the Bundle Size
+в хэндлере нужно промапироваться по list и найти какие его id элементов равны id, пришедшему от нажатия на чекбокс. Если будет совпадение, то поменять у элемента list свойства status на противоположное. То, что получим после мапирования будет новый массив, его мы и прокинем в setList, что вызовет отрисовку вычеркунтых задач.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+    Однако в твоем коде ты сначала копируешь пришедший list в новую переменную и мапируешься по ней с учетом проверки перед этим не является ли копия list undefined или null
 
-### Making a Progressive Web App
+    // Вопрос: ты сделаа копию, мапируешься по копии, мап по идее вернет новый массив, но ты его не записываешь в новую перемнную, а в setList пеедаешь эту копию. Не понимаю почему так работает
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    // Вопрос: не понимаю зачем исползовать опциональную цепочку, ведь в list будут задачи, которые можно вычеркнуть. Когда list пустой массив вычернуть и нет возможности. Получается, в каком вообще случае в нашей задаче list может быть undefined или null
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+// Вопрос, почему на событие нужно передвать ф-цию в колбэк?
+onChange={() => handlerChange(id)}
