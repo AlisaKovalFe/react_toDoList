@@ -1,6 +1,16 @@
 import React from "react";
 
-function Task({ text, status, id, handlerChange }) {
+function Task({ text, status, id, list, setList }) {
+
+	const handlerChange = (id) => {
+		setList(list?.map((el) => {
+			if (el.id === id) {
+				el.status = !el.status;
+			}
+			return el
+		}));
+	}
+
 	return (
 		<div className="task">
 			<input
@@ -8,7 +18,7 @@ function Task({ text, status, id, handlerChange }) {
 				type="checkbox"
 				value={id}
 				id="flexCheckDefault"
-				onChange={handlerChange}
+				onChange={() => handlerChange(id)}
 			/>
 			<label 
 				className={status ? "form-check-label text-decoration-line-through" : "form-check-label" }
