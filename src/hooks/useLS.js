@@ -10,6 +10,8 @@ export default function useLocalStorage(initialValue, key) {
         } else {
             return initialValue
         }
+
+        g
         
     }
     
@@ -17,9 +19,9 @@ export default function useLocalStorage(initialValue, key) {
     const [value, setValue] = useState(getCurrentValue)
 
     useEffect(()=> {
-        localStorage.setItem(key, setValue(JSON.stringify(value)))
+        localStorage.setItem(key, JSON.stringify(value))
     }, [key, value])
 
-    return [key, value]
+    return [value, setValue]
 
 }

@@ -4,7 +4,7 @@ import TaskList from '../TaskList/TaskList'
 import Form from '../Form/Form'
 import useLocalStorage from '../../hooks/useLS'
 
-let store = []
+// let store = []
 
 function Main(props) {
 
@@ -23,13 +23,13 @@ function Main(props) {
         setList((prev) => [...prev, task])
         setText('')
 
-        store.push(task)     
+        // store.push(task)     
 
-        if (localStorage.getItem('task') == null) {
-            localStorage.setItem('task', JSON.stringify(store))
-        } else if (localStorage.getItem('task') != null) {
-            localStorage.setItem('task', JSON.stringify(store))
-        }
+        // if (localStorage.getItem('task') == null) {
+        //     localStorage.setItem('task', JSON.stringify(store))
+        // } else if (localStorage.getItem('task') != null) {
+        //     localStorage.setItem('task', JSON.stringify(store))
+        // }
     } 
 
     const handlerChange = (event) => {
@@ -39,13 +39,13 @@ function Main(props) {
             
             el.status === false ? el.status = true : el.status = false    
             
-            if (el.status === true) {
-                let storeCopy = [...store]
-                storeCopy.splice(index, 1)
-                localStorage.setItem('task', JSON.stringify(storeCopy))
-            } else {
-                localStorage.setItem('task', JSON.stringify(store))
-            }
+            // if (el.status === true) {
+            //     let storeCopy = [...store]
+            //     storeCopy.splice(index, 1)
+            //     localStorage.setItem('task', JSON.stringify(storeCopy))
+            // } else {
+            //     localStorage.setItem('task', JSON.stringify(store))
+            // }
             
         }
         return el
