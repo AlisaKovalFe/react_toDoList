@@ -13,13 +13,16 @@ function Task({ text, status, id, list,  setList}) {
 	}
 	return (
 		<div className="task">
-			<input
+			<input 
 				className="form-check-input"
 				type="checkbox"
 				checked={status}
 				value={id}
 				id="flexCheckDefault"
-				onChange={() => changeStatus(id)}
+				onChange={() => {
+					changeStatus(id)
+					console.log(id)
+				}}
 			/>
 			<label 
 				className={status ? "form-check-label text-decoration-line-through" : "form-check-label" }
