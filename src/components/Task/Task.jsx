@@ -51,6 +51,7 @@ function Task({ text, status, id }) {
 								value={id}
 								id="flexCheckDefault"
 								onChange={() => handlerChange(id)}
+								checked={status}
 							/>
 							<label 
 								className={status ? "form-check-label text-decoration-line-through" : "form-check-label" }
