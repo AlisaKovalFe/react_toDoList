@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import Task from "../Task/Task";
+import { globalContext } from "../../context/globalContext";
 
-function TaskList({ list, setList }) {
+function TaskList() {
+
+	const { state } = useContext(globalContext)
+
 	return (
 		<div className="tasklist mt-5">
-			{list?.map((task) => (
+			{state?.map((task) => (
 				<div key={task.id} className="form-check ">
 					<Task
 						text={task.text}
 						status={task.status}
                         id={task.id}
-						list={list}
-						setList={setList}
 					/>
 				</div>
 			))}

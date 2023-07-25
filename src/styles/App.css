@@ -43,3 +43,34 @@
 .tasklist {
   width: 40rem;
 }
+
+.btn-delete,
+.btn-invert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 2rem;
+}
+
+.btn-invert {
+  margin-left: 1rem;
+}
+
+.task_area {
+  display: flex;
+  align-items: center;
+}
+
+.task_areaShow {
+  display: flex;
+  align-items: center;
+}
+
+.task {
+  width: 10rem;
+}
+
+.input_edit {
+  margin-left: -1.2rem;
+}

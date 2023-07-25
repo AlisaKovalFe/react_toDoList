@@ -1,20 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
+
+export const initializer = (initialValue, key) => {
+    const storage = localStorage.getItem(key)
+    if (storage !== null) {
+        try {
+            return JSON.parse(storage)
+        } catch {
+            return initialValue
+        }
+    }
+    return initialValue
+}
 
 export default function useLocalStorage(initialValue, key) {
-
-    const getValue = () => {
-        const storage = localStorage.getItem(key)
-        if (storage !== null) {
-            try {
-                return JSON.parse(storage)
-            } catch {
-                return initialValue
-            }
-        }
-        return initialValue
-    }
-
-    const [value, setValue] = useState(getValue)
+    const [value, setValue] = useState(initializer);
 
     useEffect(() => {
         localStorage.setItem(key, JSON.stringify(value))
