@@ -25,6 +25,15 @@ function Task({ text, status, id }) {
 		})
 	}
 
+	function editTask(id) {
+		dispatch({
+			type: 'EDITED_TASK',
+			payload: {
+				text: editedTask
+			}
+		})
+	}
+
 	return (
 		<div className="task_area"> 
 			{
@@ -62,7 +71,10 @@ function Task({ text, status, id }) {
 			<button 
 				type="submit" 
 				className="btn btn-secondary btn-invert"
-				onClick={() => setIsShow(!isShow)}
+				onClick={() => {
+					setIsShow(!isShow)
+					editTask(id)
+				}}
 				>
 					{ isShow ? 'Save' : 'Edit'}
 			</button>

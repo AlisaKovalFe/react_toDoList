@@ -20,6 +20,12 @@ export function reducer(state, action) {
             return state.filter((el) => el.id !== action.payload.id)
         }
 
+        case 'EDITED_TASK': {
+            return state.map((el) => {
+                return {...el, text: action.payload.text}
+            })
+        }
+
         default: {
             return state
         }
