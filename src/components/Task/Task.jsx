@@ -29,7 +29,8 @@ function Task({ text, status, id }) {
 		dispatch({
 			type: 'EDITED_TASK',
 			payload: {
-				text: editedTask
+				text: editedTask,
+				id: id
 			}
 		})
 	}

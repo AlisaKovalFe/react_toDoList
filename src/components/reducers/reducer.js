@@ -22,7 +22,11 @@ export function reducer(state, action) {
 
         case 'EDITED_TASK': {
             return state.map((el) => {
-                return {...el, text: action.payload.text}
+                if (el.id === action.payload.id) {
+                    return {...el, text: action.payload.text}
+                } else {
+                    return el
+                }
             })
         }
 
